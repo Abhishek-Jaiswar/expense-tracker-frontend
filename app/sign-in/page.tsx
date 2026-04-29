@@ -52,7 +52,7 @@ const Login = () => {
 
     try {
       setLoading(true);
-      const response = await api.post("/user/login", form);
+      const response = await api.post("/auth/login", form);
 
       if (response.status === 200 || response.status === 201) {
         setForm({

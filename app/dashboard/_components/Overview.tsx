@@ -15,8 +15,8 @@ type TStats = {
   expense_count: string;
   total_amount: string;
   average_amount: string;
-  min_amount: number;
-  max_amount: number;
+  min_amount: string;
+  max_amount: string;
 };
 
 const Overview = () => {
@@ -32,11 +32,12 @@ const Overview = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const statsRes = await api.get("/expense/expenses-stats");
-      const expensesRes = await api.get("/expense");
+      const statsRes = await api.get("/expenses/expenses-stats");
+      const expensesRes = await api.get("/expenses");
 
-      setStats(statsRes.data.data);
-      setExpenses(expensesRes.data.expenses);
+
+      setStats(statsRes.data?.data || []);
+      setExpenses(expensesRes.data?.data || []);
     } catch (error) {
       console.error("Failed to load data", error);
     } finally {
@@ -61,7 +62,7 @@ const Overview = () => {
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this expense?")) {
       try {
-        await api.delete(`/expense/${id}`);
+        await api.delete(`/expenses/${id}`);
         toast.success("Expense deleted successfully");
         fetchData();
       } catch (error) {

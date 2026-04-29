@@ -49,7 +49,7 @@ const SignUp = () => {
 
     try {
       setLoading(true);
-      const response = await api.post("/user/register", form);
+      const response = await api.post("/auth/register", form);
 
       if (response.status === 200 || response.status === 201) {
         setForm({

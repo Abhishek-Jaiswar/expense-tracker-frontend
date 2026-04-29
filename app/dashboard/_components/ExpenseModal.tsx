@@ -67,18 +67,17 @@ const ExpenseModal: React.FC<ExpenseModalProps> = ({
       };
 
       if (expense) {
-        await api.put(`/expense/update/${expense.id}`, payload);
+        await api.put(`/expenses/update/${expense.id}`, payload);
         toast.success("Expense updated successfully");
       } else {
-        await api.post("/expense/create", payload);
+        await api.post("/expenses/create", payload);
         toast.success("Expense created successfully");
       }
       onSuccess();
       onClose();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || "Failed to save expense");
+      toast.error("Failed to save expense");
     } finally {
       setLoading(false);
     }
